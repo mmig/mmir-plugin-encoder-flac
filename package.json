@@ -1,20 +1,20 @@
 {
-  "name": "mmir-plugin-asr-nuancews-web",
-  "version": "0.4.0",
-  "description": "\r\n      Cordova plugin for the MMIR framework that allows Automatic Speech Recognition (ASR) via Nuance web services\r\n    ",
+  "name": "mmir-plugin-encoder-flac",
+  "version": "0.1.0",
+  "description": "\r\n      Cordova plugin for the MMIR framework that adds a JavaScript based FLAC encoder; \r\n      uses libflac.js (BSD and partially MIT license), see https://github.com/mmig/libflac.js\r\n    ",
   "cordova": {
-    "id": "mmir-plugin-asr-nuancews-web",
+    "id": "mmir-plugin-encoder-flac",
     "platforms": []
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmig/mmir-plugins-media.git#master:mmir-plugin-asr-nuancews-web"
+    "url": "git+https://github.com/mmig/mmir-plugins-media.git#master:mmir-plugin-encoder-flac"
   },
   "keywords": [
     "cordova",
-    "speech",
-    "asr",
-    "recognition",
+    "audio",
+    "codec",
+    "flac",
     "ecosystem:cordova"
   ],
   "engines": [
@@ -31,10 +31,10 @@
 	  "postinstall": "mmir-install-cordova-assets",
 	  "preuninstall": "mmir-uninstall-cordova-assets"
   },
-  "author": "pabi01, DFKI",
+  "author": "russa, DFKI",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mmig/mmir-plugins-media/issues"
   },
-  "homepage": "https://github.com/mmig/mmir-plugins-media/tree/master%3Ammir-plugin-asr-nuancews-web#readme"
+  "homepage": "https://github.com/mmig/mmir-plugins-media/tree/master%3Ammir-plugin-encoder-flac#readme"
 }
