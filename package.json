@@ -1,7 +1,11 @@
 {
   "name": "mmir-plugin-encoder-flac",
-  "version": "0.1.0",
-  "description": "Cordova plugin for the MMIR framework that adds a JavaScript based FLAC encoder; \r\n      uses libflac.js (BSD and partially MIT license), see https://github.com/mmig/libflac.js",
+  "version": "1.0.0",
+  "description": "Cordova plugin for the MMIR framework that adds a JavaScript based FLAC encoder - uses libflac.js (BSD and partially MIT license), see https://github.com/mmig/libflac.js",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab-cos.b.dfki.de/mmir/mmir-plugin-encoder-flac.git"
+  },
   "main": "./www/webworker/flacEncoder.js",
   "directories": {
     "lib": "./www"
@@ -11,26 +15,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pluginexport"
   },
-  "cordova": {
-    "id": "mmir-plugin-encoder-flac",
-    "platforms": []
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mmig/mmir-plugins-media.git#master:mmir-plugin-encoder-flac"
-  },
   "keywords": [
-    "cordova",
     "audio",
     "codec",
     "flac",
-    "ecosystem:cordova"
-  ],
-  "engines": [
-    {
-      "name": "cordova",
-      "version": ">=5.0"
-    }
+    "mmir"
   ],
   "dependencies": {
     "mmir-plugin-encoder-core": "git+https://gitlab-cos.b.dfki.de/mmir/mmir-plugin-encoder-core.git"
@@ -41,6 +30,17 @@
   "devDependencies": {
     "mmir-plugin-exports": "git+https://gitlab-cos.b.dfki.de/mmir/mmir-plugin-exports.git"
   },
+  "cordova": {
+    "id": "mmir-plugin-encoder-amr",
+    "platforms": []
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "1.0.0": {
+        "https://gitlab-cos.b.dfki.de/mmir/mmir-plugin-encoder-core.git": ">=1.0.0"
+      }
+    }
+  },
   "mmir": {
     "workers": [
       "./www/webworker"
@@ -48,8 +48,4 @@
   },
   "author": "russa, DFKI",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mmig/mmir-plugins-media/issues"
-  },
-  "homepage": "https://github.com/mmig/mmir-plugins-media/tree/master%3Ammir-plugin-encoder-flac#readme"
 }
