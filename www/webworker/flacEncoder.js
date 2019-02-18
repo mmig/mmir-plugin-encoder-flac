@@ -48,7 +48,7 @@ function FlacEncoder(){
 
 	this.encoderInit = function(){
 		//								SAMPLERATE, CHANNELS, BPS, COMPRESSION, 0
-		flac_encoder = Flac.init_libflac(44100, 1, 16, 5, 0);
+		flac_encoder = Flac.create_libflac_encoder(44100, 1, 16, 5, 0);
 
 		if (flac_encoder != 0){
 			var status_encoder = Flac.init_encoder_stream(flac_encoder, write_callback_fn);
@@ -78,12 +78,12 @@ function FlacEncoder(){
 	    //clear();//TODO move clear
 
 	    // WAVE - PCM
-	    var flac_return = Flac.encode_buffer_pcm_as_flac(flac_encoder, buffer_i32, 1, buf_length);
+	    var flac_return = Flac.FLAC__stream_encoder_process_interleaved(flac_encoder, buffer_i32, buf_length);
 	    if (flac_return != true){
-	            console.log("Error: encode_buffer_pcm_as_flac returned false. " + flac_return);
+	            console.log("Error: FLAC__stream_encoder_process_interleaved returned false. " + flac_return);
 	    }
 //	    else { //PB DEBUB
-//	    	console.log("OK: encode_buffer_pcm_as_flac returned true. " + flac_return);
+//	    	console.log("OK: FLAC__stream_encoder_process_interleaved returned true. " + flac_return);
 //
 //	    }
 
@@ -101,6 +101,7 @@ function FlacEncoder(){
 	        this.encoded = mergeBuffersUint( buffers, totalBufferSize);
 //	        console.log("encoded: " + this.encoded);
 
+			Flac.FLAC__stream_encoder_delete(flac_encoder);
 	 };
 	 this.encoderCleanUp = function(){
 		 this.encoderInit();
