@@ -61,7 +61,6 @@ function FlacEncoder(){
 
 	this.encodeBuffer = function(buff){
 //		console.log("call encodeToFlac");
-	    //var buff = mergeBuffersFloat(recBuffersL, recLength);
 	    var buf_length = buff.length;
 
 	    //console.log("bufflen: " + buf_length);
