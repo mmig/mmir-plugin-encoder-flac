@@ -31,7 +31,7 @@
     "mmir-plugin-exports": "git+https://gitlab-cos.b.dfki.de/mmir/mmir-plugin-exports.git"
   },
   "cordova": {
-    "id": "mmir-plugin-encoder-amr",
+    "id": "mmir-plugin-encoder-flac",
     "platforms": []
   },
   "engines": {
