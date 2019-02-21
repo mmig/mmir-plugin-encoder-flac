@@ -5,6 +5,6 @@
  *
  * NOTE would need to be implemented via mmir-plugin-encoder-core(?)
  */
-export interface FlacEncoderConfigEntry {
+export interface PluginConfig {
   flacEncoder?: any;
 }
