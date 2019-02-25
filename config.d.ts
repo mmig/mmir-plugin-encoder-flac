@@ -1,4 +1,6 @@
 
+/* plugin config definition: used by mmir-plugin-exports to generate module-config.gen.js */
+
 /**
  * TODO add/support FLAC encoder settings,
  * e.g. compression [0,8] (DEFAULT: 5)
