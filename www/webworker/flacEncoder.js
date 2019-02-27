@@ -4,10 +4,17 @@ if(typeof WEBPACK_BUILD !== 'undefined' && WEBPACK_BUILD){
 
 	require('mmir-lib/workers/workerUtil');
 
-	/**
-	 * AMR encoder by cabbage <251949141@qq.com>, MIT license
-	 * @see https://github.com/twocabbages/amr.js
-	 */
+	self.FLAC_SCRIPT_LOCATION = {
+		'libflac4-1.3.2.min.js.mem'   : 'mmir-plugin-encoder-flac/libflac.mem',
+		'libflac4-1.3.2.min.wasm.wasm': 'mmir-plugin-encoder-flac/libflac.wasm.wasm'
+	};
+  /**
+   * using libflac.js
+   * Copyright (C) 2013-2019 DFKI GmbH, F. Petersen A. Russ
+   * BSD and partially MIT license (see GitHub repository)
+   *
+   * @see https://github.com/mmig/libflac.js
+   */
 	Flac = require('mmir-plugin-encoder-flac/libflac');
 
 	require('mmir-plugin-encoder-core/silenceDetector');
@@ -17,14 +24,22 @@ if(typeof WEBPACK_BUILD !== 'undefined' && WEBPACK_BUILD){
 
   importScripts('workerUtil.js');
 
+	self.FLAC_SCRIPT_LOCATION = {
+		'libflac4-1.3.2.min.js.mem'   : 'libflac.mem',
+		'libflac4-1.3.2.min.wasm.wasm': 'libflac.wasm.wasm'
+	};
   /**
    * using libflac.js
-   * Copyright (C) 2013-2014 DFKI GmbH, F. Petersen A. Russ
+   * Copyright (C) 2013-2019 DFKI GmbH, F. Petersen A. Russ
    * BSD and partially MIT license (see GitHub repository)
    *
    * @see https://github.com/mmig/libflac.js
    */
-  importScripts('libflac.min.js');
+  if(self.WebAssembly){
+  	importScripts('libflac.wasm.js');
+	} else {
+  	importScripts('libflac.min.js');
+	}
 
   importScripts('silenceDetector.js');
   importScripts('encoder.js');
@@ -34,11 +49,14 @@ if(typeof WEBPACK_BUILD !== 'undefined' && WEBPACK_BUILD){
 function FlacEncoder(){
 	var flac_encoder;
 	var flac_ok = 1;
-	var INIT = false;
+	var STATE = '';// '' | 'initializing' | 'initialized' | 'error'
 	var recLengthFlac = 0;
 
 	var tempBuffer = [];
 	this.encoded;
+
+	//if encodeBuffer() is called while async-init, the data will be cached in this list until initialization has completed
+	this._cached;
 
 	var write_callback_fn = function (buffer, bytes){
 	    tempBuffer.push(buffer);
@@ -47,19 +65,38 @@ function FlacEncoder(){
 	};
 
 	this.encoderInit = function(){
+
+		if(!Flac.isReady()){
+			var tis = this;
+			STATE = 'initializing';
+			Flac.onready = function(){
+				console.log('FLAC encoder: waited for async init, ready now...');
+				tis.encoderInit();
+			}
+			return;
+		}
+
 		//								SAMPLERATE, CHANNELS, BPS, COMPRESSION, 0
 		flac_encoder = Flac.create_libflac_encoder(44100, 1, 16, 5, 0);
 
 		if (flac_encoder != 0){
 			var status_encoder = Flac.init_encoder_stream(flac_encoder, write_callback_fn);
 			flac_ok &= (status_encoder == 0);
-			INIT = true;
+			STATE = 'initialized';
 		} else {
+			STATE = 'error';
 			console.log("Error initializing the encoder.");
 		}
 	};
 
 	this.encodeBuffer = function(buff){
+
+			if(STATE === 'initializing'){
+				this._doCache(buff);
+				return;
+			}
+			this._doEncodeCached();
+
 //		console.log("call encodeToFlac");
 	    var buf_length = buff.length;
 
@@ -88,9 +125,12 @@ function FlacEncoder(){
 
 	 };
 	 this.encoderFinish = function(){
+
+		 			this._doEncodeCached();
+
 	        flac_ok &= Flac.FLAC__stream_encoder_finish(flac_encoder);
 //	        console.log("flac finish: " + flac_ok);
-	        INIT = false;
+	        STATE = '';
 
 	        var totalBufferSize = recLengthFlac;
 	        //reset current buffers size
@@ -104,6 +144,21 @@ function FlacEncoder(){
 	 };
 	 this.encoderCleanUp = function(){
 		 this.encoderInit();
+	 };
+	 this._doCache = function(buf){
+		 if(!this._cached){
+			 this._cached = [buf];
+		 } else {
+			 this._cached.push(buf);
+		 }
+	 };
+	 this._doEncodeCached = function(){
+		 if(this._cached){
+			 for(var i=0,size=this._cached.length; i < size; ++i){
+				 this.encodeBuffer(this._cached[i]);
+			 }
+			 this._cached = null;
+		 }
 	 };
 }
 

@@ -43,7 +43,21 @@
   "mmir": {
     "workers": [
       "./www/webworker"
-    ]
+    ],
+    "modes": {
+      "wasm": {
+        "./www/libflac.js": "./www/libflac.wasm.js",
+        "exportFiles": [
+          "./www/libflac.wasm.wasm"
+        ]
+      },
+      "min": {
+        "./www/libflac.js": "./www/libflac.min.js",
+        "exportFiles": [
+          "./www/libflac.mem"
+        ]
+      }
+    }
   },
   "author": "russa, DFKI",
   "license": "MIT"

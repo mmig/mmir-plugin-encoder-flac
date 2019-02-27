@@ -30,6 +30,17 @@
         src="www/libflac.min.js"
         target="mmirf/workers/libflac.min.js" />
 
+    <asset
+        src="www/libflac.mem"
+        target="mmirf/workers/libflac.mem" />
+
+    <asset
+        src="www/libflac.wasm.js"
+        target="mmirf/workers/libflac.wasm.js" />
+
+    <asset
+        src="www/libflac.wasm.wasm"
+        target="mmirf/workers/libflac.wasm.wasm" />
     <!--
          DEV version (i.e. not minified) of FLAC encoder
 
