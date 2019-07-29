@@ -4,7 +4,7 @@
   "description": "Cordova plugin for the MMIR framework that adds a JavaScript based FLAC encoder - uses libflac.js (BSD and partially MIT license), see https://github.com/mmig/libflac.js",
   "repository": {
     "type": "git",
-    "url": "https://gitlab-cos.b.dfki.de/mmir/mmir-plugin-encoder-flac.git"
+    "url": "https://github.com/mmig/mmir-plugin-encoder-flac.git"
   },
   "main": "./www/webworker/flacEncoder.js",
   "directories": {
@@ -21,13 +21,13 @@
     "mmir"
   ],
   "dependencies": {
-    "mmir-plugin-encoder-core": "git+https://gitlab-cos.b.dfki.de/mmir/mmir-plugin-encoder-core.git"
+    "mmir-plugin-encoder-core": "git+https://github.com/mmig/mmir-plugin-encoder-core.git"
   },
   "peerDependencies": {
-    "mmir-lib": "git+https://gitlab-cos.b.dfki.de/mmir/dev_mmir-lib.git#develop/webpack"
+    "mmir-lib": "git+https://github.com/mmig/mmir-lib.git"
   },
   "devDependencies": {
-    "mmir-plugin-exports": "git+https://gitlab-cos.b.dfki.de/mmir/mmir-plugin-exports.git"
+    "mmir-plugin-exports": "git+https://github.com/mmig/mmir-plugin-exports.git"
   },
   "cordova": {
     "id": "mmir-plugin-encoder-flac",
@@ -36,7 +36,7 @@
   "engines": {
     "cordovaDependencies": {
       "1.0.0": {
-        "https://gitlab-cos.b.dfki.de/mmir/mmir-plugin-encoder-core.git": ">=1.0.0"
+        "https://github.com/mmig/mmir-plugin-encoder-core.git": ">=1.0.0"
       }
     }
   },

@@ -19,7 +19,7 @@
         <engine name="cordova" version=">=5.0" />
     </engines>
 
-	<dependency id="mmir-plugin-encoder-core" url="." subdir="mmir-plugin-encoder-core" />
+    <dependency id="mmir-plugin-encoder-core" url="https://github.com/mmig/mmir-plugin-encoder-core.git" commit="master" />
 
     <!-- module implementation for integration into MMIR framework  -->
     <asset
