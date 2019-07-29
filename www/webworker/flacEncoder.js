@@ -2,7 +2,7 @@
 var Flac;
 if(typeof WEBPACK_BUILD !== 'undefined' && WEBPACK_BUILD){
 
-	require('mmir-lib/workers/workerUtil');
+	require('mmir-lib/lib/workers/workerUtil');
 
 	self.FLAC_SCRIPT_LOCATION = {
 		'libflac4-1.3.2.min.js.mem'   : 'mmir-plugin-encoder-flac/libflac.mem',
