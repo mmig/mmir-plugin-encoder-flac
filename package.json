@@ -23,10 +23,8 @@
   "dependencies": {
     "mmir-plugin-encoder-core": "git+https://github.com/mmig/mmir-plugin-encoder-core.git"
   },
-  "peerDependencies": {
-    "mmir-lib": "git+https://github.com/mmig/mmir-lib.git"
-  },
   "devDependencies": {
+    "mmir-lib": "git+https://github.com/mmig/mmir-lib.git",
     "mmir-plugin-exports": "git+https://github.com/mmig/mmir-plugin-exports.git"
   },
   "cordova": {
