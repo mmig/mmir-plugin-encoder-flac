@@ -1,6 +1,6 @@
 {
   "name": "mmir-plugin-encoder-flac",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cordova plugin for the MMIR framework that adds a JavaScript based FLAC encoder - uses libflac.js (BSD and partially MIT license), see https://github.com/mmig/libflac.js",
   "repository": {
     "type": "git",
